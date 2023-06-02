@@ -50,6 +50,7 @@
 </head>
 
 <body>
+
   <main>
     <form>
       <fieldset>
@@ -85,6 +86,14 @@
       <button>Console Trace</button>
       <button>Trigger a Global Error</button>
     </section>
+    <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "811e47ee32214fa5a1116669b247405f"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+</script>
+                        
   </main>
 
   <script>
@@ -100,8 +109,79 @@
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
-    // Start your code here
-    // You may move this JS to another file if you wish
+    errorBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    let btnText = btn.textContent.trim();
+    switch (btnText) {
+      case 'Console Log':
+        console.log('Console Log Demo');
+        break;
+      case 'Console Error':
+        console.error('Console Error Demo');
+        break;
+      case 'Console Count':
+        console.count('Count Button: ');
+        break;
+      case 'Console Warn':
+        console.warn('Console Warn Button');
+        break;
+      case 'Console Assert':
+        let number =2;
+        let message = 'The number does not equal 3';
+        console.assert(number == 3,  {number, message});
+        break;
+      case 'Console Clear':
+        console.clear();
+        break;
+      case 'Console Dir':
+        console.dir(btn);
+        break;
+      case 'Console dirxml':
+        console.dirxml(btn);
+        break;
+      case 'Console Group Start':
+        console.group('console.group');
+        break;
+      case 'Console Group End':
+        console.groupEnd('console.group');
+        break;
+      case 'Console Table':
+        console.table([
+          { name: 'Software Engineering',num: '110', },
+          { name: 'Programming Languages: Principles and Paradigms', num: '130' },
+          { name: 'Advanced Software Engineering', num: '112' }
+        ]);
+        break;
+      case 'Start Timer':
+        console.time('Timer Button ');
+        break;
+      case 'End Timer':
+        console.timeEnd('Timer Button ');
+        break;
+        case 'Console Trace':
+        function deepest() {
+          console.trace('deepest');
+        }
+        function deeper() {
+          deepest();
+        }
+        function deep() {
+          deeper();
+        }
+        function handleBtnClick() {
+          deep();
+        }
+        handleBtnClick();
+        break;
+      case 'Trigger a Global Error':
+        nonexistentFunction();
+        break;
+      default:
+        break;
+    }
+  });
+});
+
   </script>
 </body>
 
